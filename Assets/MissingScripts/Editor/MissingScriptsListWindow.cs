@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using Discord;
 using UnityEngine;
 using UnityEditor;
 
@@ -81,7 +82,7 @@ namespace plyoung
 				// (TODO: can change this once nested prefabs are supported)
 				if (opt == 1)
 				{
-					GameObject top = PrefabUtility.FindPrefabRoot(go);
+					GameObject top = PrefabUtility.GetCorrespondingObjectFromSource(go);
 					foreach (Info n in entries) if (n.obj == top) { top = null; break; }
 					if (top == null) continue; // set to null when dupe found
 				}
@@ -97,7 +98,7 @@ namespace plyoung
 				Info nfo = new Info()
 				{
 					path = new GUIContent(go.name),
-					obj = opt == 0 ? go : PrefabUtility.FindPrefabRoot(go)
+					obj = opt == 0 ? go : PrefabUtility.GetCorrespondingObjectFromSource(go)
 				};
 				entries.Add(nfo);
 				while (tr != null)
